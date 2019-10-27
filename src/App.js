@@ -1,6 +1,6 @@
 import React from 'react';
 import PadBank from './components/PadBank';
-import Controls from './components/Controls';
+import ControlsContainer from './components/ControlsContainer';
 import { DrumMachineProvider } from './components/DrumMachineContext';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div id="drum-machine" className="inner-container">
       <DrumMachineProvider>
         <PadBank />
-        <Controls />
+        <ControlsContainer />
       </DrumMachineProvider>
     </div>
   );
