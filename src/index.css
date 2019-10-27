@@ -43,6 +43,14 @@ body {
   grid-gap: 10px;
 }
 
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 240px;
+}
+
 .controls-container p {
   font-size: 18px;
   font-weight: bold;
@@ -61,4 +69,22 @@ body {
   width: 40%;
   background-color: blue;
   cursor: pointer;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slider [type="range"] {
+  display: block;
+  width: 200px;
+  margin: auto;
+  cursor: pointer;
+  background-color: rgb(114, 113, 113);
+}
+
+#display {
+  height: 45px;
+  width: 200px;
+  background-color: rgb(114, 113, 113);
 }

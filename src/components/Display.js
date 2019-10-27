@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DrumMachineContext } from './DrumMachineContext';
 
 const Display = () => {
-  return <div id={'#display'}></div>;
+  const { display } = useContext(DrumMachineContext);
+  return <p id={'display'}>{display}</p>;
 };
 
 export default Display;

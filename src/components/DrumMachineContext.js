@@ -108,10 +108,18 @@ export const DrumMachineContext = createContext();
 export const DrumMachineProvider = ({ children }) => {
   const [sounds, setSounds] = useState(drumSound);
   const [soundType, setSoundType] = useState('Heater Kit');
+  const [display, setDisplay] = useState('');
 
   return (
     <DrumMachineContext.Provider
-      value={{ sounds, setSounds, soundType, setSoundType }}
+      value={{
+        sounds,
+        setSounds,
+        soundType,
+        setSoundType,
+        display,
+        setDisplay
+      }}
     >
       {children}
     </DrumMachineContext.Provider>
