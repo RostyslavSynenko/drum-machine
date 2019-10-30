@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import { transform } from '@babel/core';
 
 const drumSound = [
   {
@@ -109,6 +110,43 @@ export const DrumMachineProvider = ({ children }) => {
   const [sounds, setSounds] = useState(drumSound);
   const [soundType, setSoundType] = useState('Heater Kit');
   const [display, setDisplay] = useState('');
+  const [triggeredKey, setTriggeredKey] = useState('');
+  const [power, setPower] = useState(true);
+
+  const playSound = () => {
+    const sound = document.getElementById(triggeredKey);
+
+    if (!sound) return;
+
+    const display = document.getElementById('display');
+    display.innerHTML = sound.dataset.soundname;
+
+    sound.currentTime = 0;
+
+    sound.play();
+  };
+
+  const onKeyDown = event => {
+    setTriggeredKey(event.code.replace('Key', ''));
+
+    playSound();
+  };
+
+  const onClick = event => {
+    const sound = event.target.querySelector('audio');
+
+    if (!sound) return;
+
+    setTriggeredKey(sound.id);
+
+    playSound();
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => document.removeEventListener('keydown', onKeyDown);
+  });
 
   return (
     <DrumMachineContext.Provider
@@ -118,7 +156,10 @@ export const DrumMachineProvider = ({ children }) => {
         soundType,
         setSoundType,
         display,
-        setDisplay
+        setDisplay,
+        triggeredKey,
+        setTriggeredKey,
+        onClick
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -28,9 +28,7 @@ body {
 .drum-pad {
   height: 70px;
   width: 90px;
-  background-color: rgb(114, 113, 113);
   border-radius: 5px;
-  box-shadow: 2px 2px 5px black;
   font-weight: bold;
   text-align: center;
   line-height: 70px;
@@ -39,7 +37,7 @@ body {
 
 .pad-bank {
   display: grid;
-  grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   grid-gap: 10px;
 }
 
@@ -75,7 +73,7 @@ body {
   width: 100%;
 }
 
-.slider [type="range"] {
+.slider [type='range'] {
   display: block;
   width: 200px;
   margin: auto;
@@ -87,4 +85,6 @@ body {
   height: 45px;
   width: 200px;
   background-color: rgb(114, 113, 113);
+  text-align: center;
+  line-height: 45px;
 }
