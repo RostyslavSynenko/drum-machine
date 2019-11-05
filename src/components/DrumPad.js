@@ -18,24 +18,22 @@ const DramPad = ({ clipId, clip, keyTrigger }) => {
 
   const activatePad = () => {
     if (power) {
-      padStyle.backgroundColor === 'orange'
-        ? setPadStyle(passiveStyle)
-        : setPadStyle(activeStyle);
+      setPadStyle(activeStyle);
     } else {
-      padStyle.transform === 'translateY(3px)'
-        ? setPadStyle(passiveStyle)
-        : setPadStyle({
-            ...activeStyle,
-            backgroundColor: 'grey',
-            boxShadow: '0 3px grey'
-          });
+      setPadStyle({
+        ...activeStyle,
+        backgroundColor: 'grey',
+        boxShadow: '0 3px grey'
+      });
     }
   };
 
   const playSound = () => {
     const sound = document.getElementById(keyTrigger);
+
     sound.currentTime = 0;
-    sound.play();
+    sound.play().catch(() => console.log('Power is OFF! No audio source.'));
+
     activatePad();
     setTimeout(() => {
       setPadStyle(passiveStyle);
