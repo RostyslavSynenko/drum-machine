@@ -37,7 +37,9 @@ const DramPad = ({ clipId, clip, keyTrigger }) => {
     sound.currentTime = 0;
     sound.play();
     activatePad();
-    setTimeout(() => activatePad(), 100);
+    setTimeout(() => {
+      setPadStyle(passiveStyle);
+    }, 100);
     displayClipName(clipId);
   };
 

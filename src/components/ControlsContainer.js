@@ -28,10 +28,10 @@ const ControlsContainer = () => {
 
   return (
     <div className={'controls-container'}>
-      <Control title={'Power'} onClick={powerControl} style={powerSlider} />
+      <Control title={'Power'} onClick={powerControl} styles={powerSlider} />
       <Display />
       <VolumeSlider />
-      <Control title={'Bank'} onClick={selectBank} style={bankSlider} />
+      <Control title={'Bank'} onClick={selectBank} styles={bankSlider} />
     </div>
   );
 };
