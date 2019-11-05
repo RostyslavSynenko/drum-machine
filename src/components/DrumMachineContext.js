@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { transform } from '@babel/core';
+import React, { createContext, useState } from 'react';
 
-const drumSound = [
+const padBanks = [
   {
     type: 'Heater Kit',
     sounds: [
@@ -107,59 +106,76 @@ const drumSound = [
 export const DrumMachineContext = createContext();
 
 export const DrumMachineProvider = ({ children }) => {
-  const [sounds, setSounds] = useState(drumSound);
-  const [soundType, setSoundType] = useState('Heater Kit');
-  const [display, setDisplay] = useState('');
-  const [triggeredKey, setTriggeredKey] = useState('');
   const [power, setPower] = useState(true);
+  const [display, setDisplay] = useState('');
+  const [currentPadBank, setCurrentPadBank] = useState(padBanks[0].sounds);
+  const [currentPadBankType, setCurrentPadBankType] = useState('Heater Kit');
+  const [volume, setVolume] = useState(0.3);
 
-  const playSound = () => {
-    const sound = document.getElementById(triggeredKey);
-
-    if (!sound) return;
-
-    const display = document.getElementById('display');
-    display.innerHTML = sound.dataset.soundname;
-
-    sound.currentTime = 0;
-
-    sound.play();
+  const powerControl = () => {
+    setPower(prevPower => !prevPower);
+    setDisplay('');
   };
 
-  const onKeyDown = event => {
-    setTriggeredKey(event.code.replace('Key', ''));
-
-    playSound();
+  const selectBank = () => {
+    if (power) {
+      if (currentPadBankType === 'Heater Kit') {
+        setCurrentPadBank(padBanks[1].sounds);
+        setDisplay('Smooth Piano Kit');
+        setCurrentPadBankType('Smooth Piano Kit');
+      } else {
+        setCurrentPadBank(padBanks[0].sounds);
+        setDisplay('Heater Kit');
+        setCurrentPadBankType('Heater Kit');
+      }
+    }
   };
 
-  const onClick = event => {
-    const sound = event.target.querySelector('audio');
-
-    if (!sound) return;
-
-    setTriggeredKey(sound.id);
-
-    playSound();
+  const displayClipName = name => {
+    if (power) {
+      setDisplay(name);
+    }
   };
 
-  useEffect(() => {
-    document.addEventListener('keydown', onKeyDown);
+  const clearDisplay = () => {
+    setDisplay('');
 
-    return () => document.removeEventListener('keydown', onKeyDown);
-  });
+    setTimeout(() => clearDisplay(), 1000);
+  };
+
+  const adjustVolume = event => {
+    const { value } = event.target;
+    if (power) {
+      setVolume(value);
+      setDisplay('Volume: ' + Math.round(value * 100));
+    }
+  };
+
+  {
+    const clips = [].slice.call(document.getElementsByClassName('clip'));
+    clips.forEach(sound => {
+      sound.volume = volume;
+    });
+  }
 
   return (
     <DrumMachineContext.Provider
       value={{
-        sounds,
-        setSounds,
-        soundType,
-        setSoundType,
+        power,
+        setPower,
         display,
         setDisplay,
-        triggeredKey,
-        setTriggeredKey,
-        onClick
+        currentPadBank,
+        setCurrentPadBank,
+        currentPadBankType,
+        setCurrentPadBankType,
+        volume,
+        setVolume,
+        powerControl,
+        selectBank,
+        displayClipName,
+        clearDisplay,
+        adjustVolume
       }}
     >
       {children}

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Control = ({ title }) => {
+const Control = ({ title, onClick }) => {
   return (
     <div>
       <p>{title}</p>
-      <div className={'select'}>
+      <div className={'select'} onClick={onClick}>
         <div className={'inner'}></div>
       </div>
     </div>

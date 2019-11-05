@@ -3,16 +3,31 @@ import DrumPad from './DrumPad';
 import { DrumMachineContext } from './DrumMachineContext';
 
 const PadBank = () => {
-  const { sounds, soundType } = useContext(DrumMachineContext);
-  const currentSounds = sounds.filter(el => el.type === soundType)[0];
+  const { power, currentPadBank } = useContext(DrumMachineContext);
 
-  return (
-    <div className={'pad-bank'}>
-      {currentSounds.sounds.map(item => (
-        <DrumPad key={item.id} {...item} />
-      ))}
-    </div>
-  );
+  let padBank;
+
+  if (power) {
+    padBank = currentPadBank.map(drum => (
+      <DrumPad
+        key={drum.id}
+        clipId={drum.id}
+        clip={drum.url}
+        keyTrigger={drum.keyTrigger}
+      />
+    ));
+  } else {
+    padBank = currentPadBank.map(drum => (
+      <DrumPad
+        key={drum.id}
+        clipId={drum.id}
+        clip={'#'}
+        keyTrigger={drum.keyTrigger}
+      />
+    ));
+  }
+
+  return <div className={'pad-bank'}>{padBank}</div>;
 };
 
 export default PadBank;
