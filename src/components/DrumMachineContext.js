@@ -114,7 +114,8 @@ export const DrumMachineProvider = ({ children }) => {
 
   const powerControl = () => {
     setPower(prevPower => !prevPower);
-    setDisplay('');
+    setDisplay(power ? 'Off' : 'On');
+    setTimeout(() => setDisplay(''), 1000);
   };
 
   const selectBank = () => {
@@ -162,15 +163,10 @@ export const DrumMachineProvider = ({ children }) => {
     <DrumMachineContext.Provider
       value={{
         power,
-        setPower,
         display,
-        setDisplay,
         currentPadBank,
-        setCurrentPadBank,
         currentPadBankType,
-        setCurrentPadBankType,
         volume,
-        setVolume,
         powerControl,
         selectBank,
         displayClipName,
